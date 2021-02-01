@@ -24,7 +24,7 @@ public class Comment extends BaseEntity{
     public void setScore(Integer score) {
         this.score = score;
     }
-    @Column(name = "text_content")
+    @Column(name = "text_content",columnDefinition = "TEXT")
     public String getTextContent() {
         return textContent;
     }
