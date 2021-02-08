@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <th:block th:include="~{fragment/head}"></th:block>
 
 <body>
@@ -34,7 +35,7 @@
                 <div class="bg-white tm-block">
                     <div class="row mt-2">
                         <div class="col-12">
-                            <form action="/users/register" method="POST" th:object="${userRegisterBindingModel}" class="tm-login-form">
+                            <form action="/users/register" method="POST" th:object="${userRedirectBindingModel}" class="tm-login-form">
                                 <div class="input-group">
                                     <label for="username" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Username</label>
                                     <input th:field="*{username}" name="username" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"
