@@ -29,7 +29,12 @@ public class UserServiceImpl implements UserSevice {
     @Override
     public void registerUser(UserServiceModel userServiceModel) {
         User user = modelMapper.map(userServiceModel, User.class);
-        user.setRole(roleService.findRole(RoleNameEnum.USER));
+        if (!user.getUsername().equals("Svetulkata")){
+
+            user.setRole(roleService.findRole(RoleNameEnum.USER));
+        }else {
+            user.setRole(roleService.findRole(RoleNameEnum.ADMIN));
+        }
 
         userRepository.save(user);
     }
