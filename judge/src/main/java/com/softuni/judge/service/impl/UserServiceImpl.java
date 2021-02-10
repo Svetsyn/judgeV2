@@ -10,6 +10,8 @@ import com.softuni.judge.service.UserSevice;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserSevice {
 
@@ -29,10 +31,10 @@ public class UserServiceImpl implements UserSevice {
     @Override
     public void registerUser(UserServiceModel userServiceModel) {
         User user = modelMapper.map(userServiceModel, User.class);
-        if (!user.getUsername().equals("Svetulkata")){
+        if (!user.getUsername().equals("Svetulkata")) {
 
             user.setRole(roleService.findRole(RoleNameEnum.USER));
-        }else {
+        } else {
             user.setRole(roleService.findRole(RoleNameEnum.ADMIN));
         }
 
@@ -42,8 +44,8 @@ public class UserServiceImpl implements UserSevice {
     @Override
     public UserServiceModel findUserByUsernameAndPassword(String username, String password) {
 
-return userRepository.findByUsernameAndPassword(username,password)
-        .map(user -> modelMapper.map(user,UserServiceModel.class)).orElse(null);
+        return userRepository.findByUsernameAndPassword(username, password)
+                .map(user -> modelMapper.map(user, UserServiceModel.class)).orElse(null);
     }
 
     @Override
@@ -58,5 +60,11 @@ return userRepository.findByUsernameAndPassword(username,password)
         currentUser.setId(null);
         currentUser.setUsername(null);
         currentUser.setRoleNameEnum(null);
+    }
+
+    @Override
+    public List<String> findAllUsernames() {
+        return userRepository.findAllUsernames();
+
     }
 }
