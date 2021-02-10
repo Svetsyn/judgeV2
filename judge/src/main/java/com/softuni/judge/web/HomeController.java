@@ -1,13 +1,19 @@
 package com.softuni.judge.web;
 
+import com.softuni.judge.security.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    
+    private final CurrentUser currentUser;
+
+    public HomeController(CurrentUser currentUser) {
+        this.currentUser = currentUser;
+    }
+
     @GetMapping("/")
-    public String indexPage(){
-        return "index";
+    public String indexPage() {
+        return currentUser.isAnonymous() ? "index" : "home";
     }
 }

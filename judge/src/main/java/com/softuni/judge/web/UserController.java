@@ -32,8 +32,8 @@ public class UserController {
     @GetMapping("/login")
     public String login(Model model) {
 
-        if (!model.containsAttribute("userLoginBindingModel")){
-            model.addAttribute("userLoginBindingModel",new UserLoginBindingModel());
+        if (!model.containsAttribute("userLoginBindingModel")) {
+            model.addAttribute("userLoginBindingModel", new UserLoginBindingModel());
             model.addAttribute("notFound", false);
         }
         return "login";
@@ -44,22 +44,23 @@ public class UserController {
                                @ModelAttribute UserLoginBindingModel userLoginBindingModel,
                                BindingResult bindingResult,
                                RedirectAttributes redirectAttributes,
-                               HttpSession httpSession){
+                               HttpSession httpSession) {
 
-        if (bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("userLoginBindingModel",userLoginBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel",bindingResult);
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel", bindingResult);
             return "redirect:login";
         }
         UserServiceModel user = userSevice
-                .findUserByUsernameAndPassword(userLoginBindingModel.getUsername(),userLoginBindingModel.getPassword());
+                .findUserByUsernameAndPassword(userLoginBindingModel.getUsername(), userLoginBindingModel.getPassword());
 
-        if (user==null){
-            redirectAttributes.addFlashAttribute("userLoginBindingModel",userLoginBindingModel);
-            redirectAttributes.addFlashAttribute("notFound",true);
+        if (user == null) {
+            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
+            redirectAttributes.addFlashAttribute("notFound", true);
             return "redirect:login";
         }
-        httpSession.setAttribute("user",user);
+        //httpSession.setAttribute("user",user);
+        userSevice.login(user);
 
         return "redirect:/";
     }
@@ -91,5 +92,13 @@ public class UserController {
         userSevice.registerUser(userServiceModel);
 
         return "redirect:login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+
+        userSevice.logout();
+
+        return "redirect:/";
     }
 }
