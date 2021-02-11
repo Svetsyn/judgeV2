@@ -16,4 +16,6 @@ public class HomeController {
     public String indexPage() {
         return currentUser.isAnonymous() ? "index" : "home";
     }
+
+
 }

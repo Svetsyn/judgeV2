@@ -47,6 +47,4 @@ public class ExerciseController {
         return "redirect:/";
     }
 
-
-
 }

@@ -7,6 +7,9 @@ import com.softuni.judge.service.ExerciseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 public class ExerciseServiceImpl implements ExerciseService {
     private final ExerciseRepository exerciseRepository;
@@ -23,5 +26,20 @@ public class ExerciseServiceImpl implements ExerciseService {
                 modelMapper
                         .map(exerciseServiseModel, Exercise.class)
         );
+    }
+
+    @Override
+    public List<String> findAllnames() {
+        return  exerciseRepository.findAllExName();
+    }
+
+    @Override
+    public boolean checkIsLate(String exercise) {
+
+        Exercise exercise1 = exerciseRepository
+                .findByName(exercise)
+                .orElse(null);
+        return exercise1.getDueDate().isBefore(LocalDateTime.now());
+
     }
 }
