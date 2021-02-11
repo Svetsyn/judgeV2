@@ -1,5 +1,6 @@
 package com.softuni.judge.service;
 
+import com.softuni.judge.model.entity.RoleNameEnum;
 import com.softuni.judge.model.service.UserServiceModel;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UserSevice {
     void logout();
 
     List<String> findAllUsernames();
+
+    void changeRole(String username, RoleNameEnum roleNameEnum);
 }
